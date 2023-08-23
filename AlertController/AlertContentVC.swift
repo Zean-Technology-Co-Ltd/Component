@@ -148,12 +148,14 @@ class AlertContentVC: UIViewController {
     
     // MARK: Event Response
     @objc private func didClickLeftBtnAction(){
-        SwiftEntryKit.dismiss()
-        self.completion?(false)
+        SwiftEntryKit.dismiss() { [weak self] in
+            self?.completion?(false)
+        }
     }
     @objc private func didClickRightBtnAction(){
-        SwiftEntryKit.dismiss()
-        self.completion?(true)
+        SwiftEntryKit.dismiss() { [weak self] in
+            self?.completion?(true)
+        }
     }
     // MARK: Set
     
