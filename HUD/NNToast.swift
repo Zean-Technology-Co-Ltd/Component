@@ -25,13 +25,13 @@ public final class Toast: NSObject {
     
     public func showSuccess(_ message: String?, clearTime: TimeInterval = 2) {
         if let message = message {
-            Toast.showSuccess(message)
+            Toast.showSuccess(message, clearTime: clearTime)
         }
     }
     
     public func showWarning(_ message: String?, clearTime: TimeInterval = 2) {
         if let message = message {
-            Toast.showInfo(message)
+            Toast.showInfo(message, clearTime: clearTime)
         }
     }
     
@@ -56,31 +56,33 @@ public final class Toast: NSObject {
     }
     
     static func showToast(_ message: String, image: UIImage?, clearTime: TimeInterval = autoDismissTime, completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(UIApplication.shared.nn_keyWindow ?? topViewController().view, message: message, image: image, completion: completion)
+        DispatchQueue.main.async {
+            self.showToast(UIApplication.shared.nn_keyWindow ?? topViewController().view, message: message, image: image, clearTime: clearTime, completion: completion)
+        }
     }
     
     static func showSuccess(_ message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        showToast(message, image: R.image.hud_success(), completion: completion)
+        showToast(message, image: R.image.hud_success(), clearTime: clearTime, completion: completion)
     }
     
     static func showError(_ message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        showToast(message, image: R.image.hud_error(), completion: completion)
+        showToast(message, image: R.image.hud_error(), clearTime: clearTime, completion: completion)
     }
     
     static func showInfo(_ message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        showToast(message, image: R.image.hud_warning(), completion: completion)
+        showToast(message, image: R.image.hud_warning(), clearTime: clearTime, completion: completion)
     }
     
     static func showSuccess(_ view: UIView, message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(view, message: message, image: R.image.hud_success(), completion: completion)
+        self.showToast(view, message: message, image: R.image.hud_success(), clearTime: clearTime, completion: completion)
     }
     
     static func showError(_ view: UIView, message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(view, message: message, image: R.image.hud_error(), completion: completion)
+        self.showToast(view, message: message, image: R.image.hud_error(), clearTime: clearTime, completion: completion)
     }
     
     static func showInfo(_ view: UIView, message: String, clearTime: TimeInterval = autoDismissTime,  completion: ((_ didTap: Bool)->())? = nil) {
-        self.showToast(view, message: message, image: R.image.hud_warning(), completion: completion)
+        self.showToast(view, message: message, image: R.image.hud_warning(), clearTime: clearTime, completion: completion)
     }
     
     static func wait() {
