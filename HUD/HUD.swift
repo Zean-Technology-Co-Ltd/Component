@@ -118,6 +118,11 @@ public final class HUD: NSObject {
         }
     }
     
+    static func wait(progress: Float, status: String) {
+        HUD.updateMiniSize(false)
+        SVProgressHUD.showProgress(progress, status: status)
+    }
+    
     static func clear() {
         SVProgressHUD.dismiss()
     }
